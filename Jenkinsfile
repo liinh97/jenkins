@@ -9,8 +9,10 @@ pipeline {
         }
 
         stage('SSH server'){
-            sshagent(['aws-remote']) {
-                sh 'ssh -o StrictHostKeyChecking=no -l root 13.212.150.79 touch test.txt'
+            steps{
+                sshagent(['aws-remote']) {
+                    sh 'ssh -o StrictHostKeyChecking=no -l root 13.212.150.79 touch test.txt'
+                }
             }
         }
     }
