@@ -18,7 +18,7 @@ pipeline {
         stage('Remote server') {
             steps {
                 sshagent(['ubuntu-remote']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l root 54.169.119.11 sudo phpunit /var/www/unitTest/tests/'
+                    sh 'ssh -o StrictHostKeyChecking=no -l root 54.169.119.11 cat ~/.bashrc'
                 }
             }
         }
