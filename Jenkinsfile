@@ -17,7 +17,7 @@ pipeline {
 
         stage('install PHP') {
             steps {
-                sshagent(['aws-remote']) {
+                sshagent(['ubuntu-remote']) {
                     sh 'apt install --no-install-recommends php8.1'
                 }
             }
