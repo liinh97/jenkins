@@ -1,25 +1,26 @@
 pipeline {
-
     agent any
     stages {
         stage('Clone') {
-            steps{
+            steps {
                 git 'https://github.com/liinh97/jenkins.git'
             }
         }
 
-        stage('SSH server'){
-            steps{
+        stage('SSH server') {
+            steps {
                 sshagent(['aws-remote']) {
-sshPublisher(publishers: [sshPublisherDesc(configName: 'remote', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'cp var/www/html/* /var/www/html', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/var/www/html', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-		}
+                    sshPublisher(publishers: [sshPublisherDesc(configName: 'remote', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'cp var/www/html/* /var/www/html', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/var/www/html', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                }
             }
         }
 
-	stage('install PHP'){
-	    steps{
-		sh 'apt install --no-install-recommends php8.1'
-	    }
-	}
+        stage('install PHP') {
+            steps {
+                sshagent(['aws-remote']) {
+                    sh 'apt install --no-install-recommends php8.1'
+                }
+            }
+        }
     }
 }
