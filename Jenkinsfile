@@ -18,7 +18,13 @@ pipeline {
         stage('install PHP') {
             steps {
                 sshagent(['ubuntu-remote']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l root 54.169.119.11 pwd'
+                    sh 'ssh -o StrictHostKeyChecking=no -l root 54.169.119.11 sudo apt update'
+                }
+            }
+
+            steps {
+                sshagent(['ubuntu-remote']) {
+                    sh 'ssh -o StrictHostKeyChecking=no -l root 54.169.119.11 sudo apt install -y --no-install-recommends php8.1'
                 }
             }
         }
