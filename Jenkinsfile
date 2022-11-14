@@ -17,7 +17,9 @@ sshPublisher(publishers: [sshPublisherDesc(configName: 'remote', transfers: [ssh
         }
 
 	stage('install PHP'){
+	    steps{
 		sh 'sudo apt install --no-install-recommends php8.1'
+	    }
 	}
     }
 }
